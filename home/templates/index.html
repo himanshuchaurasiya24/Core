@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block start %}
+
+    <h1> This is a return page by django server</h1>
+    <a href="/contact/">
+        Contact
+    </a>
+    <a href="/about/">
+        About
+    </a>
+    <p>
+        {{people}}
+    </p>
+    <p>
+        {{vegetables.firstOf}}
+    </p>
+    <p>
+       {% if 'Tomato' in vegetables %}
+            Yes Available
+        {% else %}
+            Not Available
+        {% endif %}
+    </p>
+    <p>
+        {{text}}
+    </p>
+    {% endblock %}
