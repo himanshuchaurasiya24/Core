@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'accounts'
+    'accounts',
+    'vege'
 ]
 # ANOTHER WAY TO DENOTE NEW APPS IN SETTINGS.PY
 # EXTERNAL_APPS = ['home', 'accounts']
