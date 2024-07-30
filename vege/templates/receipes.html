@@ -3,7 +3,8 @@
     <div class="container mt-5">
         <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h1>
+        
+        <h1>
                 Add Receipe
             </h1>
             <hr>
@@ -20,8 +21,24 @@
                 <input type="file" class="form-control" , name="receipe_image">
               </div>
             <button type="submit" class="btn btn-success">Add Receipe</button>
+            <hr>
+        </form>
+         
+          <div class="mt-5">
+            <div class="mx-auto col-6">
+              <form>
+              <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Search Food
+              </label>
+              <input name="search"  type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
           </form>
-          <table class="table">
+        </div>
+      </div>
+
+          
+          <table class="table mt-5">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -42,6 +59,7 @@
                 </td>
                 <td>
                   <a href ="/delete-receipe/{{receipe.id}}/" class="btn btn-danger">Delete</a>
+                  <a href ="/update-receipe/{{receipe.id}}/" class="btn btn-success">Update</a>
                 </td>
               </tr>
               {% endfor %}

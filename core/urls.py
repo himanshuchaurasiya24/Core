@@ -25,10 +25,13 @@ urlpatterns = [
     path('',home,name='home' ),
     path('about/',about,name='about' ),
     path('delete-receipe/<id>/',delete_receipe, name='delete_receipe' ),
+    path('update-receipe/<id>/',update_receipe, name='update_receipe' ),
     path('receipes/',receipes,name='receipe' ),
     path('contact/',contact,name='contact' ),
     path('success-page/',success_page,name='success_page' ),
     path('admin/', admin.site.urls),
+    path('login/', login_page, name='login'),
+    path('register/', register_page, name='register'),
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
