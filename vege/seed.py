@@ -1,0 +1,26 @@
+from faker import Faker
+import random
+from .models import *
+fake = Faker()
+def seed_db (n=100)->None:
+    try:
+        for i in range (0, n):
+            department_objs = Department.objects.all()
+            random_index = random.randint(0, len(department_objs)-1)
+            student_id= f'STU--{random.randint(100, 999)}'
+            department = department_objs[random_index]
+            student_name= fake.name()
+            student_email= fake.email()
+            student_age= random.randint(18, 35)
+            student_address= fake.address()
+            student_id_obj =StudentID.objects.create(student_id=student_id)
+            student_obj = Student.objects.create(
+                student_id=student_id_obj,
+                department=department,
+                student_name=student_name,
+                student_age= student_age,
+                student_email= student_email,
+                student_address= student_address)
+            student_obj.save()
+    except Exception as e:
+        print(e)
