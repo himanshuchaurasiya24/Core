@@ -3,6 +3,9 @@ from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/login/')
 def receipes(request):
     if request.method=='POST':
         data = request.POST
@@ -17,10 +20,12 @@ def receipes(request):
         queryset = queryset.filter(receipe_name__icontains=request.GET.get('search'))
     context = {'receipes':queryset}
     return render(request, 'receipes.html', context)
+@login_required(login_url='/login/')
 def delete_receipe(request, id):
     queryset = Receipe.objects.get(id=id)
     queryset.delete()
     return redirect('/receipes/')
+@login_required(login_url='/login/')
 def update_receipe(request, id):
     queryset = Receipe.objects.get(id=id)
     if request.method =='POST':
@@ -37,7 +42,25 @@ def update_receipe(request, id):
         
     context = {'receipe':queryset}
     return render (request, 'update-receipe.html', context)
+@login_required(login_url='/login/')
+def logout_page(request):
+    logout(request=request,)
+    return redirect('/login/')
 def login_page(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    if User.objects.filter(username=username).exists():
+        user = authenticate(username=username, password=password)
+        if user is None:
+            messages.info(request, 'Invalid password.')
+            return redirect('/login/')
+        else:
+            login(user=user, request=request)
+            return redirect('/receipes/')
+    
+    messages.info(request, 'username does not exists.')
+    # return redirect('/login/')
+
     return render(request, 'login.html')
 def register_page(request):
     if request.method=='POST':
