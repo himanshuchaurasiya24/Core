@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 class Receipe(models.Model):
     user = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -45,5 +46,13 @@ class SubjectMarks(models.Model):
         # this will not allow same subject repeatation in the report card...
     def __str__(self) -> str:
         return f'{self.student.student_name} {self.subject.subject_name}'
+class ReportCard(models.Model):
+    student = models.ForeignKey(Student, related_name='studentreportcard', on_delete=models.CASCADE)
+    student_rank = models.IntegerField()
+    date_of_report_card_generation=models.DateField(auto_now_add=True)
+    class Meta:
+        unique_together = ['student_rank', 'date_of_report_card_generation']
+    def __str__(self) -> str:
+        return self.student.student_name
 
 
