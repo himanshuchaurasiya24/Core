@@ -26,10 +26,7 @@ SECRET_KEY = 'django-insecure-w4olrxmt#-@3*le0_$676db+d%(v0-#p0+w)1$i*cd_(hky(v7
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
-
+AUTH_USER_MODEL = 'accounts.CustomUser'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -135,3 +132,11 @@ MEDIA_URL= '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS= True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "hc24199@gmail.com"
+EMAIL_HOST_PASSWORD= "eschima9129@#"

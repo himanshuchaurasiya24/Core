@@ -1,5 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+User = get_user_model()
+class StudentManager(models.Manager):
+    # def get_queryset(self) -> models.QuerySet:
+    #     return super().get_queryset()
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted= False)
+
+
+
 
 class Receipe(models.Model):
     user = models.ForeignKey(User , on_delete=models.SET_NULL, null=True, blank=True)
@@ -8,6 +18,8 @@ class Receipe(models.Model):
     receipe_description= models.CharField(max_length=400)
     receipe_image = models.ImageField(upload_to='receipe')
     receipe_view_count= models.IntegerField(default=1)
+    is_deleted= models.BooleanField(default=False)
+  
     def __str__(self) -> str:
         return self.receipe_name
 
@@ -28,6 +40,9 @@ class Student(models.Model):
     student_email= models.EmailField(unique=True)
     student_age= models.IntegerField(default=18)
     student_address= models.TextField()
+    is_deleted= models.BooleanField(default=False)
+    objects= StudentManager()
+    admin_objects =models.Manager()
     def __str__(self) -> str:
         return self.student_name
     class Meta:
