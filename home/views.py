@@ -3,12 +3,14 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.http import HttpResponse
 from vege.seed import *
+from .models import *
 from .utils import send_email_to_client
 def send_email(request):
     send_email_to_client()
     return redirect('/')
 def home(request):
     # seed_db(100)
+    Car.objects.create(car_name = f'Nexon-{random.randint(0, 100)}')
     people =[
         {
         'name':'Abhijeet','age':26        

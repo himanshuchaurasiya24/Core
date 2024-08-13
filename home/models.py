@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here. vid at 04:26
 class Student (models.Model):
     # id = models.AutoField() --> automatically created by django
@@ -15,3 +16,7 @@ class Car(models.Model):
     speed = models.IntegerField(default=50)
     def __str__(self) -> str:
         return self.car_name
+@receiver(post_save, sender=Car)
+def call_car_api(sender, instance, **kwargs):
+    print('Car object Created!')
+    print(sender, instance, kwargs)   
